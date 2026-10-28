@@ -29,21 +29,29 @@ const _usersJson = '''
 
 class CampusFlowService {
   final Duration delay;
+  final String tasksJson;
+  final String coursesJson;
+  final String usersJson;
 
-  const CampusFlowService({this.delay = const Duration(milliseconds: 500)});
+  const CampusFlowService({
+    this.delay = const Duration(milliseconds: 500),
+    this.tasksJson = _tasksJson,
+    this.coursesJson = _coursesJson,
+    this.usersJson = _usersJson,
+  });
 
   Future<List<Task>> fetchTasks() async {
-    final data = await _load(_tasksJson);
+    final data = await _load(tasksJson);
     return data.map(Task.fromJson).toList();
   }
 
   Future<List<Course>> fetchCourses() async {
-    final data = await _load(_coursesJson);
+    final data = await _load(coursesJson);
     return data.map(Course.fromJson).toList();
   }
 
   Future<List<User>> fetchUsers() async {
-    final data = await _load(_usersJson);
+    final data = await _load(usersJson);
     return data.map(User.fromJson).toList();
   }
 
