@@ -50,8 +50,9 @@ class CampusFlowService {
   Future<List<Map<String, dynamic>>> _load(String source) {
     return Future.delayed(delay, () {
       final decoded = jsonDecode(source);
-      if (decoded is! List) {
-        throw const FormatException('Une liste JSON était attendue');
+      if (decoded is! List ||
+          decoded.any((item) => item is! Map<String, dynamic>)) {
+        throw const FormatException('Une liste d\'objets JSON était attendue');
       }
       return decoded.cast<Map<String, dynamic>>();
     });
